@@ -13,6 +13,7 @@ public class MainForm extends javax.swing.JFrame {
     private Admin admin = new Admin("","","","");
     private Critic critic = new Critic();
     
+          
     public MainForm(User user) {
       this.user = user;
         initComponents();

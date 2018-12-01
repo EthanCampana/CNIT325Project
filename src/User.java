@@ -1,5 +1,5 @@
 
-public class User extends Person {
+public class User extends Person implements LeaveReview {
      public String UserName;
      
 
@@ -26,4 +26,9 @@ public class User extends Person {
         this.Password = Password;
     }
      public String Password;
+
+    
+    public void LeaveReview() {
+        return;
+    }
 }
