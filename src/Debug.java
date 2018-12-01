@@ -105,7 +105,9 @@ public class Debug extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void CloseFrame(){
+    super.dispose();
+    }
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
         jRadioButton1.setSelected(false);
         jRadioButton3.setSelected(false);
@@ -134,16 +136,25 @@ public class Debug extends javax.swing.JFrame {
         if(jRadioButton1.isSelected() == true){
         User CurrentUser = new User("SuperUser","SuperUser","SuperUser","SuperUser");
         System.out.println("Logged in as a User");
+        MainForm MainForm = new MainForm(CurrentUser);
+        MainForm.setVisible(true);
+        CloseFrame();
+        return;
         }
         if(jRadioButton2.isSelected() == true){
         Critic CurrentCritic = new Critic();
         System.out.println("Logged in as a Critic");
-        
+        MainForm MainForm = new MainForm(CurrentCritic);
+        MainForm.setVisible(true);
+        CloseFrame();
+        return;
         }
         if(jRadioButton3.isSelected() == true){
            Admin CurrentAdmin = new Admin("SuperUser","SuperUser","SuperUser","SuperUser");
            System.out.println("Logged in as a Admin");
-            
+            MainForm MainForm = new MainForm(CurrentAdmin);
+             MainForm.setVisible(true);
+            CloseFrame();  
         }
         
     }//GEN-LAST:event_bntLoginActionPerformed

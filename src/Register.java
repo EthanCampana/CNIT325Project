@@ -244,14 +244,20 @@ public class Register extends javax.swing.JFrame {
        con.commit();
        JOptionPane.showMessageDialog(rootPane, "Registration Completed Successfully");
        //Take them to the main Form
-       
+       Login Login = new Login();
+       Login.setVisible(true);
+       CloseFrame();
+       return; 
        }
        if(jRadioButton2.isSelected() == true){
        st.executeUpdate("insert into Login values('"+ txtFirstName.getText() +"','"+txtLastName.getText()+"','"+txtUsername.getText()+"','"+Password+"','CRITIC')" );
        con.commit();
        JOptionPane.showMessageDialog(rootPane, "Registration Completed Successfully");
        //Take them to the main Form
-       
+       Login Login = new Login();
+       Login.setVisible(true);
+       CloseFrame();
+         
        }
      }
      catch(SQLException s){

@@ -175,16 +175,28 @@ public class Login extends javax.swing.JFrame {
        User CurrentUser = new User(Username,Password,i1,i2);
        //Login as User. Creates a User Object based off the information in the Database
        //Create Constructor below that will create main page and uses the User Constructor
+       MainForm MainForm = new MainForm(CurrentUser);
+       MainForm.setVisible(true);
+       CloseFrame();
+       return;
        }
        if(i5.equalsIgnoreCase("ADMIN")){
        Admin CurrentAdmin = new Admin(Username,Password,i1,i2);
        //Login as Admin. Creates a User Object based off the information in the Database
        //Create Constructor below that will create main page and uses the User Constructor
+       MainForm MainForm = new MainForm(CurrentAdmin);
+       MainForm.setVisible(true);
+       CloseFrame();
+       return;
        }
        if(i5.equalsIgnoreCase("CRITIC")){
        Critic CurrentCritic = new Critic();
        //Login as Admin. Creates a User Object based off the information in the Database
        //Create Constructor below that will create main page and uses the User Constructor
+       MainForm MainForm = new MainForm(CurrentCritic);
+       MainForm.setVisible(true);
+       CloseFrame();
+       return;
        }
        }
 
