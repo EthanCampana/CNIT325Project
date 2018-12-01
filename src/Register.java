@@ -36,6 +36,9 @@ public class Register extends javax.swing.JFrame {
     }
     
     private boolean Check(){
+    String Password = String.valueOf(txtPassword.getPassword());
+    String Password2 = String.valueOf(txtPassword2.getPassword());
+    
     if("".equals(txtFirstName.getText().trim())){
     txtFirstName.requestFocus();
     return false;
@@ -49,15 +52,15 @@ public class Register extends javax.swing.JFrame {
     txtUsername.requestFocus();
      return false;
     }
-        if("".equals(txtPassword.getText().trim())){
+        if(txtPassword.getPassword().length == 0){
     txtPassword.requestFocus();
     return false;
     }
-    if("".equals(txtPassword2.getText().trim())){
+    if(txtPassword.getPassword().length == 2){
     txtPassword2.requestFocus();
     return false;
     }
-    if(txtPassword.getText().equals(txtPassword2.getText())){
+    if(Password.equalsIgnoreCase(Password2)){
     return true;
     }
     txtPassword.setText("");
@@ -75,17 +78,17 @@ public class Register extends javax.swing.JFrame {
         txtFirstName = new javax.swing.JTextField();
         txtLastName = new javax.swing.JTextField();
         txtUsername = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
-        txtPassword2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         btnRegister = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        txtPassword = new javax.swing.JPasswordField();
+        txtPassword2 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,47 +145,48 @@ public class Register extends javax.swing.JFrame {
                     .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRegister)
+                .addGap(36, 36, 36))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnBack)))
-                        .addGap(30, 30, 30)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnBack)))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtLastName)
-                                .addComponent(txtFirstName)
-                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtFirstName))
+                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRegister)))
-                .addGap(36, 36, 36))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                            .addComponent(txtPassword2))
+                        .addContainerGap())))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtPassword, txtPassword2, txtUsername});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(jLabel1)))
+                                .addComponent(jLabel1))
+                            .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,11 +197,12 @@ public class Register extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel5))
+                            .addComponent(jLabel4)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(txtPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -206,7 +211,7 @@ public class Register extends javax.swing.JFrame {
                         .addComponent(jRadioButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRegister)
-                        .addContainerGap(38, Short.MAX_VALUE))
+                        .addContainerGap(45, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBack)
@@ -226,7 +231,8 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-     if(Check() == false){
+        String Password = String.valueOf(txtPassword.getPassword());
+        if(Check() == false){
         return;
         }
      try{
@@ -234,14 +240,14 @@ public class Register extends javax.swing.JFrame {
        Connection con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=Login_DB;integratedSecurity=true;");
        Statement st = con.createStatement();
        if(jRadioButton1.isSelected() == true){
-       st.executeUpdate("insert into Login values('"+ txtFirstName.getText() +"','"+txtLastName.getText()+"','"+txtUsername.getText()+"','"+txtPassword.getText()+"','USER')" );
+       st.executeUpdate("insert into Login values('"+ txtFirstName.getText() +"','"+txtLastName.getText()+"','"+txtUsername.getText()+"','"+Password+"','USER')" );
        con.commit();
        JOptionPane.showMessageDialog(rootPane, "Registration Completed Successfully");
        //Take them to the main Form
        
        }
        if(jRadioButton2.isSelected() == true){
-       st.executeUpdate("insert into Login values('"+ txtFirstName.getText() +"','"+txtLastName.getText()+"','"+txtUsername.getText()+"','"+txtPassword.getText()+"','CRITIC')" );
+       st.executeUpdate("insert into Login values('"+ txtFirstName.getText() +"','"+txtLastName.getText()+"','"+txtUsername.getText()+"','"+Password+"','CRITIC')" );
        con.commit();
        JOptionPane.showMessageDialog(rootPane, "Registration Completed Successfully");
        //Take them to the main Form
@@ -318,8 +324,8 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtLastName;
-    private javax.swing.JTextField txtPassword;
-    private javax.swing.JTextField txtPassword2;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JPasswordField txtPassword2;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
