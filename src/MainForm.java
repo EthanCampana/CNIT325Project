@@ -38,16 +38,41 @@ import javax.ws.rs.core.MediaType;
 
 public class MainForm extends JFrame implements ActionListener {
 
-    private JCheckBox jCheckBox1, jCheckBox2, jCheckBox3, jCheckBox4, jCheckBox5;
+    private JCheckBox jCheckBox1, jCheckBox2, jCheckBox3, jCheckBox4, jCheckBox5, jCheckBox6, jCheckBox7, jCheckBox8, jCheckBox9, jCheckBox10;
     private JPanel p2, contentPane;
     private JTextField search;
     private JScrollPane scrollPane;
     private JButton btnSearch;
     private ArrayList<JButton> results = new ArrayList<>();
     private static int SIDE_WIDTH = 200, CONTENT_WIDTH = 700, HEIGHT = 500;
+    private Person p;
 
-    public MainForm(Person person) {
+    public MainForm(User user) {
+        
+        p = user;
+        initComponents();
 
+    }
+
+    public MainForm(Critic critic) {
+        
+        p = critic;
+        initComponents();
+        
+    }
+
+    public MainForm(Admin admin) {
+        
+        p = admin;
+        initComponents();
+        
+    }
+    
+    
+    
+    
+    
+    public void initComponents() {
         JPanel pnlSide = new JPanel();
         pnlSide.setBorder(LineBorder.createBlackLineBorder());
         pnlSide = new JPanel();
@@ -55,7 +80,12 @@ public class MainForm extends JFrame implements ActionListener {
         jCheckBox2 = new JCheckBox("Mexican");
         jCheckBox3 = new JCheckBox("Pizza");
         jCheckBox4 = new JCheckBox("Japanese");
-        jCheckBox5 = new JCheckBox("Italian");
+        jCheckBox5 = new JCheckBox("Korean");
+        jCheckBox6 = new JCheckBox("Italian");
+        jCheckBox7 = new JCheckBox("Desserts");
+        jCheckBox8 = new JCheckBox("Coffee");
+        jCheckBox9 = new JCheckBox("Chinese");
+        jCheckBox10 = new JCheckBox("Grocery");
 
         javax.swing.GroupLayout pnlSideLayout = new javax.swing.GroupLayout(pnlSide);
         pnlSide.setLayout(pnlSideLayout);
@@ -68,7 +98,12 @@ public class MainForm extends JFrame implements ActionListener {
                                         .addComponent(jCheckBox2)
                                         .addComponent(jCheckBox3)
                                         .addComponent(jCheckBox4)
-                                        .addComponent(jCheckBox5))
+                                        .addComponent(jCheckBox5)
+                                        .addComponent(jCheckBox6)
+                                        .addComponent(jCheckBox7)
+                                        .addComponent(jCheckBox8)
+                                        .addComponent(jCheckBox9)
+                                        .addComponent(jCheckBox10))
                                 .addContainerGap(98, Short.MAX_VALUE))
         );
         pnlSideLayout.setVerticalGroup(
@@ -84,6 +119,16 @@ public class MainForm extends JFrame implements ActionListener {
                                 .addComponent(jCheckBox4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jCheckBox5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBox6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBox7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBox8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBox9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jCheckBox10)
                                 .addContainerGap(255, Short.MAX_VALUE))
         );
 
@@ -156,7 +201,6 @@ public class MainForm extends JFrame implements ActionListener {
         pack();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(SIDE_WIDTH + CONTENT_WIDTH, HEIGHT);
-
     }
 
 //    public static void main(String[] args) {
@@ -176,9 +220,10 @@ public class MainForm extends JFrame implements ActionListener {
         if (term.equals("") || term.equals(null)) {
             term = "";
         } else {
-            term = "&term=" + term;
+            term = "term=" + term;
         }
-        System.out.println("https://api.yelp.com/v3/businesses/search?location=" + location + term + "&categories=" + categories);
+        term = term.replaceAll(" ", "%20");
+        System.out.println("https://api.yelp.com/v3/businesses/search?" + term + "&categories=" + categories + "&location=" + location);
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target("https://api.yelp.com/v3/businesses/search?location=" + location + term + "&categories=" + categories);
         target.register((ClientRequestFilter) requestContext -> {
@@ -219,7 +264,22 @@ public class MainForm extends JFrame implements ActionListener {
                 categories += "japanese,";
             }
             if (jCheckBox5.isSelected()) {
+                categories += "korean,";
+            }
+            if (jCheckBox6.isSelected()) {
                 categories += "italian,";
+            }
+            if (jCheckBox7.isSelected()) {
+                categories += "desserts,";
+            }
+            if (jCheckBox8.isSelected()) {
+                categories += "coffee,";
+            }
+            if (jCheckBox9.isSelected()) {
+                categories += "chinese,";
+            }
+            if (jCheckBox10.isSelected()) {
+                categories += "grocery,";
             }
             if (categories.length() > 0 && categories.charAt(categories.length() - 1) == ',') {
                 categories = categories.substring(0, categories.length() - 1);
@@ -231,29 +291,42 @@ public class MainForm extends JFrame implements ActionListener {
                 ImageIcon image = new ImageIcon();
                 String info = "<html><b><u>" + r.getName() + "</u></b><p style=\"padding-right: 5px;\">Rating :" + r.getRating() + "/5.0</p><br>" + r.getLocationObject().getDisplay_address()[0] + "<br>" + r.getLocationObject().getDisplay_address()[1] + "</html>";
                 try {
-                    URL url = new URL(r.getImage_url());
-                    image = new ImageIcon(ImageIO.read(url));
+                    if (!r.getImage_url().equals("")) {
+                        URL url = new URL(r.getImage_url());
+                        image = new ImageIcon(ImageIO.read(url));
+                    }
                 } catch (MalformedURLException ex) {
                     Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
                     Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 JButton btnResult = new JButton();
                 btnResult.setHorizontalAlignment(SwingConstants.LEFT);
-                btnResult.setLayout(new GridLayout(1,2));
-                
+                btnResult.setLayout(new GridLayout(1, 2));
+
                 btnResult.add(new JLabel(info));
                 btnResult.add(new JLabel(image));
                 btnResult.setBackground(Color.WHITE);
                 btnResult.setPreferredSize(new Dimension(CONTENT_WIDTH, 150));
                 btnResult.setBorder(new LineBorder(Color.BLACK));
+                btnResult.addActionListener(this);
                 results.add(btnResult);
                 p2.add(btnResult);
 
             }
             System.out.println(results.size());
-            p2.setPreferredSize(new Dimension(CONTENT_WIDTH, (results.size()+1)*150));
+            p2.setPreferredSize(new Dimension(CONTENT_WIDTH, (results.size() + 1) * 150));
+        } else {
+            for(JButton b : results) {
+                if(ae.getSource() == b) {
+                    if(p instanceof User) {
+                        ((User)p).LeaveReview();
+                    } else {
+                        ((Critic)p).LeaveReview();
+                    }
+                }
+            }
         }
         validate();
         repaint();

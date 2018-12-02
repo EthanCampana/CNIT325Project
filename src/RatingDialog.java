@@ -1,62 +1,81 @@
 
+import java.awt.Toolkit;
+import java.net.URL;
+import javax.swing.ImageIcon;
+
+
 public class RatingDialog extends javax.swing.JDialog {
 
     private int rating = 0;
-     int Finalrating;
-   
+    int Finalrating;
+    
     RatingDialog() {
         super((java.awt.Frame) null, true);
-          initComponents();
-          setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);    
+        initComponents();
+        setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
     }
-    public void showDialog(){
-    setVisible(true);
+
+    public void showDialog() {
+        setVisible(true);
     }
-    public int ReturnValue(){
-    setVisible(true);
+
+    public int ReturnValue() {
+        setVisible(true);
         return Finalrating;
     }
-    
-    private void checkrating(){
-    if(rating == 0){star2.setEnabled(false);
-        star3.setEnabled(false);
-        star4.setEnabled(false);
-        star5.setEnabled(false);
-        star1.setEnabled(false);
-         lblScore.setText("0");
+
+    private void checkrating() {
+        if (rating == 0) {
+            star2.setEnabled(false);
+            star3.setEnabled(false);
+            star4.setEnabled(false);
+            star5.setEnabled(false);
+            star1.setEnabled(false);
+            lblScore.setText("0");
+        }
+        if (rating == 1) {
+            star2.setEnabled(false);
+            star3.setEnabled(false);
+            star4.setEnabled(false);
+            star5.setEnabled(false);
+            star1.setEnabled(true);
+            lblScore.setText("1");
+        }
+        if (rating == 2) {
+            star2.setEnabled(true);
+            star3.setEnabled(false);
+            star4.setEnabled(false);
+            star5.setEnabled(false);
+            star1.setEnabled(true);
+            lblScore.setText("2");
+        }
+        if (rating == 3) {
+            star2.setEnabled(true);
+            star3.setEnabled(true);
+            star4.setEnabled(false);
+            star5.setEnabled(false);
+            star1.setEnabled(true);
+            lblScore.setText("3");
+        }
+        if (rating == 4) {
+            star2.setEnabled(true);
+            star3.setEnabled(true);
+            star4.setEnabled(true);
+            star5.setEnabled(false);
+            star1.setEnabled(true);
+            lblScore.setText("4");
+        }
+        if (rating == 5) {
+            star2.setEnabled(true);
+            star3.setEnabled(true);
+            star4.setEnabled(true);
+            star5.setEnabled(true);
+            star1.setEnabled(true);
+            lblScore.setText("5");
+        }
+
     }
-    if(rating == 1){        star2.setEnabled(false);
-        star3.setEnabled(false);
-        star4.setEnabled(false);
-        star5.setEnabled(false);
-        star1.setEnabled(true);
-     lblScore.setText("1");}
-    if(rating == 2){        star2.setEnabled(true);
-        star3.setEnabled(false);
-        star4.setEnabled(false);
-        star5.setEnabled(false);
-        star1.setEnabled(true);
-         lblScore.setText("2");    }
-    if(rating == 3){        star2.setEnabled(true);
-        star3.setEnabled(true);
-        star4.setEnabled(false);
-        star5.setEnabled(false);
-        star1.setEnabled(true);
-     lblScore.setText("3");}
-    if(rating == 4){        star2.setEnabled(true);
-        star3.setEnabled(true);
-        star4.setEnabled(true);
-        star5.setEnabled(false);
-        star1.setEnabled(true); lblScore.setText("4");}
-    if(rating == 5){        star2.setEnabled(true);
-        star3.setEnabled(true);
-        star4.setEnabled(true);
-        star5.setEnabled(true);
-        star1.setEnabled(true);
-         lblScore.setText("5");}
-    
-    
-    }
+
     public RatingDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -265,7 +284,7 @@ public class RatingDialog extends javax.swing.JDialog {
         star5.setEnabled(false);
         star2.setEnabled(true);
         lblScore.setText("4");
-         
+
     }//GEN-LAST:event_star4MouseEntered
 
     private void star5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_star5MouseEntered
@@ -286,7 +305,7 @@ public class RatingDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_star2MouseExited
 
     private void star3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_star3MouseExited
-       checkrating();
+        checkrating();
     }//GEN-LAST:event_star3MouseExited
 
     private void star4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_star4MouseExited
@@ -294,7 +313,7 @@ public class RatingDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_star4MouseExited
 
     private void star5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_star5MouseExited
-       checkrating();
+        checkrating();
     }//GEN-LAST:event_star5MouseExited
 
     private void star1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_star1MouseClicked
@@ -304,11 +323,11 @@ public class RatingDialog extends javax.swing.JDialog {
         star3.setEnabled(false);
         star4.setEnabled(false);
         star5.setEnabled(false);
-        
+
     }//GEN-LAST:event_star1MouseClicked
 
     private void star2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_star2MouseClicked
-       rating = 2;
+        rating = 2;
         star1.setEnabled(true);
         star2.setEnabled(true);
         star3.setEnabled(false);
@@ -344,7 +363,7 @@ public class RatingDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_star5MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     Finalrating = rating;
+        Finalrating = rating;
         setVisible(false);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
