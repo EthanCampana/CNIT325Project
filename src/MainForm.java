@@ -6,9 +6,18 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -216,14 +225,26 @@ public class MainForm extends JFrame implements ActionListener {
                 categories = categories.substring(0, categories.length() - 1);
             }
             Feed feed = searchYelp("47906", search.getText(), categories);
+            results.clear();
             for (Restaurant r : feed.getBusinesses()) {
 
+                ImageIcon image = new ImageIcon();
+                String info = "<html><b><u>" + r.getName() + "</u></b><p style=\"padding-right: 5px;\">Rating :" + r.getRating() + "/5.0</p><br>" + r.getLocationObject().getDisplay_address()[0] + "<br>" + r.getLocationObject().getDisplay_address()[1] + "</html>";
+                try {
+                    URL url = new URL(r.getImage_url());
+                    image = new ImageIcon(ImageIO.read(url));
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
-                String html = "<html><b><u>" + r.getName() + "</u></b><p style=\"padding-right: 5px;\">Rating :" + r.getRating() + "/5.0</p><br>" + r.getLocationObject().getDisplay_address()[0] + "<br>" + r.getLocationObject().getDisplay_address()[1] + "</html>";
-                JButton btnResult = new JButton(html);
-//                btnResult.add(new JLabel(html));
+                JButton btnResult = new JButton();
                 btnResult.setHorizontalAlignment(SwingConstants.LEFT);
-//                btnResult.setLayout(new FlowLayout());
+                btnResult.setLayout(new GridLayout(1,2));
+                
+                btnResult.add(new JLabel(info));
+                btnResult.add(new JLabel(image));
                 btnResult.setBackground(Color.WHITE);
                 btnResult.setPreferredSize(new Dimension(CONTENT_WIDTH, 150));
                 btnResult.setBorder(new LineBorder(Color.BLACK));
@@ -234,6 +255,7 @@ public class MainForm extends JFrame implements ActionListener {
             System.out.println(results.size());
             p2.setPreferredSize(new Dimension(CONTENT_WIDTH, (results.size()+1)*150));
         }
+        validate();
         repaint();
     }
 
