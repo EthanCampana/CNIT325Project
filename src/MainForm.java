@@ -97,7 +97,7 @@ public class MainForm extends JFrame implements ActionListener {
 
         // Content Panel
         p2 = new JPanel();
-        p2.setLayout(new GridLayout(-1, 1));
+//        p2.setLayout(new GridLayout(0, 1));
         p2.setBackground(Color.LIGHT_GRAY);
         p2.setPreferredSize(new Dimension(CONTENT_WIDTH, HEIGHT));
         p2.setAutoscrolls(true);
@@ -112,7 +112,7 @@ public class MainForm extends JFrame implements ActionListener {
         contentPane = new JPanel(new BorderLayout());
         contentPane.setPreferredSize(new Dimension(950, 800));
         contentPane.add(scrollPane, BorderLayout.CENTER);
-
+        scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 //        for (int i = 0; i < 20; i++) {
 //
 //            JPanel pnlResult = new JPanel();
@@ -144,8 +144,6 @@ public class MainForm extends JFrame implements ActionListener {
                         .addComponent(contentPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        
-
         pack();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(SIDE_WIDTH + CONTENT_WIDTH, HEIGHT);
@@ -166,9 +164,14 @@ public class MainForm extends JFrame implements ActionListener {
         if (categories.equals("") || categories.equals(null)) {
             categories = "restaurant,food";
         }
-
+        if (term.equals("") || term.equals(null)) {
+            term = "";
+        } else {
+            term = "&term=" + term;
+        }
+        System.out.println("https://api.yelp.com/v3/businesses/search?location=" + location + term + "&categories=" + categories);
         Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("https://api.yelp.com/v3/businesses/search?location=" + location + "&term=" + term + "&categories=" + categories);
+        WebTarget target = client.target("https://api.yelp.com/v3/businesses/search?location=" + location + term + "&categories=" + categories);
         target.register((ClientRequestFilter) requestContext -> {
             requestContext.getHeaders().add("Authorization", "Bearer " + "eSUcRXu7r-KhNt-bxEn1DE4Nye4hXIdan2tQtRNQD9ritE7U-f38PnYU7RviTRar0t0TZ0bM0WuJg-9-4q_FW-ym2tVOFYNCed24Z_2OFYvOsMI_sWXBhMhbqLACXHYx");
         });
@@ -195,19 +198,19 @@ public class MainForm extends JFrame implements ActionListener {
             p2.removeAll();
             String categories = "";
             if (jCheckBox1.isSelected()) {
-                categories += "FastFood,";
+                categories += "hotdog,";
             }
             if (jCheckBox2.isSelected()) {
-                categories += "Mexican,";
+                categories += "mexican,";
             }
             if (jCheckBox3.isSelected()) {
-                categories += "Pizza,";
+                categories += "pizza,";
             }
             if (jCheckBox4.isSelected()) {
-                categories += "Japanese,";
+                categories += "japanese,";
             }
             if (jCheckBox5.isSelected()) {
-                categories += "Italian,";
+                categories += "italian,";
             }
             if (categories.length() > 0 && categories.charAt(categories.length() - 1) == ',') {
                 categories = categories.substring(0, categories.length() - 1);
@@ -215,18 +218,21 @@ public class MainForm extends JFrame implements ActionListener {
             Feed feed = searchYelp("47906", search.getText(), categories);
             for (Restaurant r : feed.getBusinesses()) {
 
-                JButton btnResult = new JButton();
-                String text = r.getName() + "     " + r.getLocationObject().getDisplay_address()[0] + " " + r.getLocationObject().getDisplay_address()[1];
-                btnResult.add(new JLabel(text));
+                
+                String html = "<html><b><u>" + r.getName() + "</u></b><p style=\"padding-right: 5px;\">Rating :" + r.getRating() + "/5.0</p><br>" + r.getLocationObject().getDisplay_address()[0] + "<br>" + r.getLocationObject().getDisplay_address()[1] + "</html>";
+                JButton btnResult = new JButton(html);
+//                btnResult.add(new JLabel(html));
                 btnResult.setHorizontalAlignment(SwingConstants.LEFT);
-                btnResult.setLayout(new FlowLayout());
+//                btnResult.setLayout(new FlowLayout());
                 btnResult.setBackground(Color.WHITE);
-                btnResult.setPreferredSize(new Dimension(SIDE_WIDTH, 180));
+                btnResult.setPreferredSize(new Dimension(CONTENT_WIDTH, 150));
                 btnResult.setBorder(new LineBorder(Color.BLACK));
                 results.add(btnResult);
                 p2.add(btnResult);
 
             }
+            System.out.println(results.size());
+            p2.setPreferredSize(new Dimension(CONTENT_WIDTH, (results.size()+1)*150));
         }
         repaint();
     }
