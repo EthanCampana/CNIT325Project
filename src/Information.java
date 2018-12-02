@@ -12,7 +12,7 @@ public abstract class Information {
     
     protected String Name;
     protected String Description;
-    protected Address Address;
+    protected Location location;
 
     public String getName() {
         return Name;
@@ -30,12 +30,12 @@ public abstract class Information {
         this.Description = Description;
     }
 
-    public Address getAddress() {
-        return Address;
+    public Location getAddress() {
+        return location;
     }
 
-    public void setAddress(Address Address) {
-        this.Address = Address;
+    public void setAddress(Location location) {
+        this.location = location;
     }
         
 }

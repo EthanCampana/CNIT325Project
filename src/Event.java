@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Event extends Information {
     
-    private Address Address = new Address("","","","");
+    private Location location;
     private Time StartTime = new Time();
     private Time EndTime = new Time();
     private boolean AllDay = false;

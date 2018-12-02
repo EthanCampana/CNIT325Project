@@ -1,3 +1,4 @@
+import com.google.gson.Gson;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -6,6 +7,11 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.ClientRequestFilter;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 
 
 /**
@@ -186,6 +192,7 @@ public class Login extends javax.swing.JFrame {
        //Create Constructor below that will create main page and uses the User Constructor
        MainForm MainForm = new MainForm(CurrentAdmin);
        MainForm.setVisible(true);
+       MainForm.setResizable(false);
        CloseFrame();
        return;
        }
@@ -257,7 +264,11 @@ public class Login extends javax.swing.JFrame {
                 new Login().setVisible(true);
             }
         });
+        
+        
     }
+    
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnLogin;
