@@ -192,7 +192,7 @@ public class Login extends javax.swing.JFrame {
        return;
        }
        if(i5.equalsIgnoreCase("CRITIC")){
-       Critic CurrentCritic = new Critic();
+       Critic CurrentCritic = new Critic(Username,Password,i1,i2);
        //Login as Admin. Creates a User Object based off the information in the Database
        //Create Constructor below that will create main page and uses the User Constructor
        MainForm MainForm = new MainForm(CurrentCritic);

@@ -142,7 +142,7 @@ public class Debug extends javax.swing.JFrame {
         return;
         }
         if(jRadioButton2.isSelected() == true){
-        Critic CurrentCritic = new Critic();
+        Critic CurrentCritic = new Critic("SuperUser","SuperUser","SuperUser","SuperUser");
         System.out.println("Logged in as a Critic");
         MainForm MainForm = new MainForm(CurrentCritic);
         MainForm.setVisible(true);

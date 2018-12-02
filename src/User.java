@@ -28,7 +28,9 @@ public class User extends Person implements LeaveReview {
      public String Password;
 
     
+     @Override
     public void LeaveReview() {
-        return;
+        RatingDialog rating = new RatingDialog();
+        Review myreview = new Review(rating.ReturnValue());
     }
 }
