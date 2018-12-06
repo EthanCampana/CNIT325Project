@@ -10,7 +10,7 @@
  */
 public interface LeaveReview {
     
-    void LeaveReview();
+    Review LeaveReview();
    
     
 }

@@ -102,7 +102,7 @@ public class RatingDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        star1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Star 2.png"))); // NOI18N
+        star1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Photo/Star 2.png"))); // NOI18N
         star1.setEnabled(false);
         star1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -116,7 +116,7 @@ public class RatingDialog extends javax.swing.JDialog {
             }
         });
 
-        star2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Star 2.png"))); // NOI18N
+        star2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Photo/Star 2.png"))); // NOI18N
         star2.setEnabled(false);
         star2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -130,7 +130,7 @@ public class RatingDialog extends javax.swing.JDialog {
             }
         });
 
-        star3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Star 2.png"))); // NOI18N
+        star3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Photo/Star 2.png"))); // NOI18N
         star3.setEnabled(false);
         star3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -144,7 +144,7 @@ public class RatingDialog extends javax.swing.JDialog {
             }
         });
 
-        star4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Star 2.png"))); // NOI18N
+        star4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Photo/Star 2.png"))); // NOI18N
         star4.setEnabled(false);
         star4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -158,7 +158,7 @@ public class RatingDialog extends javax.swing.JDialog {
             }
         });
 
-        star5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Star 2.png"))); // NOI18N
+        star5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Photo/Star 2.png"))); // NOI18N
         star5.setEnabled(false);
         star5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

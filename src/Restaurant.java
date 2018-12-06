@@ -22,6 +22,7 @@ public class Restaurant implements Serializable {
     Coordinates coordinates;
     Location location;
     Object[] transactions;
+    private ArrayList<Review> reviews;
 
     public String getId() {
         return id;
@@ -159,6 +160,9 @@ public class Restaurant implements Serializable {
         this.transactions = transactions;
     }
 
+    public void addReview(Review r){
+    reviews.add(r);
     
+    }
 
 }

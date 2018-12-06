@@ -38,9 +38,10 @@ public class Critic extends Person implements LeaveReview
     
     
     @Override
-    public void LeaveReview(){
+    public Review LeaveReview(){
     CriticDialog dialog = new CriticDialog();
     Review myreview = new Review(dialog.ReturnValue());
         addReview(myreview);
+        return myreview;
     }
 }

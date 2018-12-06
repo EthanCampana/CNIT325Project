@@ -29,8 +29,9 @@ public class User extends Person implements LeaveReview {
 
     
      @Override
-    public void LeaveReview() {
+    public Review LeaveReview() {
         RatingDialog rating = new RatingDialog();
         Review myreview = new Review(rating.ReturnValue());
+        return myreview;
     }
 }

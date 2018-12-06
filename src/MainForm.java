@@ -44,6 +44,7 @@ public class MainForm extends JFrame implements ActionListener {
     private JScrollPane scrollPane;
     private JButton btnSearch;
     private ArrayList<JButton> results = new ArrayList<>();
+    private ArrayList<Restaurant> resturaunts = new ArrayList<>();
     private static int SIDE_WIDTH = 200, CONTENT_WIDTH = 700, HEIGHT = 500;
     private Person p;
 
@@ -286,6 +287,7 @@ public class MainForm extends JFrame implements ActionListener {
             }
             Feed feed = searchYelp("47906", search.getText(), categories);
             results.clear();
+            resturaunts.clear();
             for (Restaurant r : feed.getBusinesses()) {
 
                 ImageIcon image = new ImageIcon();
@@ -304,7 +306,7 @@ public class MainForm extends JFrame implements ActionListener {
                 JButton btnResult = new JButton();
                 btnResult.setHorizontalAlignment(SwingConstants.LEFT);
                 btnResult.setLayout(new GridLayout(1, 2));
-
+                
                 btnResult.add(new JLabel(info));
                 btnResult.add(new JLabel(image));
                 btnResult.setBackground(Color.WHITE);
@@ -313,6 +315,7 @@ public class MainForm extends JFrame implements ActionListener {
                 btnResult.addActionListener(this);
                 results.add(btnResult);
                 p2.add(btnResult);
+                resturaunts.add(r);
 
             }
             System.out.println(results.size());
@@ -321,9 +324,11 @@ public class MainForm extends JFrame implements ActionListener {
             for(JButton b : results) {
                 if(ae.getSource() == b) {
                     if(p instanceof User) {
-                        ((User)p).LeaveReview();
+                        Review r  = ((User)p).LeaveReview();
+                        resturaunts.get(results.indexOf(b)).addReview(r);
                     } else {
-                        ((Critic)p).LeaveReview();
+                       Review r = ((Critic)p).LeaveReview();
+                       resturaunts.get(results.indexOf(b)).addReview(r);
                     }
                 }
             }
