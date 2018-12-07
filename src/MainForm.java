@@ -9,6 +9,8 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -24,6 +26,7 @@ import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -35,12 +38,17 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 public class MainForm extends JFrame implements ActionListener {
 
     private JCheckBox jCheckBox1, jCheckBox2, jCheckBox3, jCheckBox4, jCheckBox5, jCheckBox6, jCheckBox7, jCheckBox8, jCheckBox9, jCheckBox10;
+    private JRadioButton radio1, radio2;
     private JPanel p2, contentPane;
     private JTextField search;
+    private JLabel lblTitle;
     private JScrollPane scrollPane;
     private JButton btnSearch;
     private ArrayList<JButton> results = new ArrayList<>();
@@ -49,34 +57,35 @@ public class MainForm extends JFrame implements ActionListener {
     private Person p;
 
     public MainForm(User user) {
-        
+
         p = user;
         initComponents();
 
     }
 
     public MainForm(Critic critic) {
-        
+
         p = critic;
         initComponents();
-        
+
     }
 
     public MainForm(Admin admin) {
-        
+
         p = admin;
         initComponents();
-        
+
     }
-    
-    
-    
-    
-    
+
     public void initComponents() {
         JPanel pnlSide = new JPanel();
         pnlSide.setBorder(LineBorder.createBlackLineBorder());
         pnlSide = new JPanel();
+        radio1 = new JRadioButton("Restaurants");
+        radio1.setSelected(true);
+        radio1.addActionListener(this);
+        radio2 = new JRadioButton("Events");
+        radio2.addActionListener(this);
         jCheckBox1 = new JCheckBox("Fast Food");
         jCheckBox2 = new JCheckBox("Mexican");
         jCheckBox3 = new JCheckBox("Pizza");
@@ -95,6 +104,8 @@ public class MainForm extends JFrame implements ActionListener {
                         .addGroup(pnlSideLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(pnlSideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(radio1)
+                                        .addComponent(radio2)
                                         .addComponent(jCheckBox1)
                                         .addComponent(jCheckBox2)
                                         .addComponent(jCheckBox3)
@@ -111,6 +122,10 @@ public class MainForm extends JFrame implements ActionListener {
                 pnlSideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(pnlSideLayout.createSequentialGroup()
                                 .addGap(101, 101, 101)
+                                .addComponent(radio1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(radio2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jCheckBox1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jCheckBox2)
@@ -138,7 +153,7 @@ public class MainForm extends JFrame implements ActionListener {
         pnlHeader.setBackground(Color.LIGHT_GRAY);
         pnlHeader.setPreferredSize(new Dimension(SIDE_WIDTH, 70));
 
-        JLabel lblTitle = new JLabel("Restaurants");
+        lblTitle = new JLabel("Restaurants");
         search = new JTextField(35);
         btnSearch = new JButton("Search");
         btnSearch.addActionListener(this);
@@ -168,18 +183,7 @@ public class MainForm extends JFrame implements ActionListener {
         contentPane.setPreferredSize(new Dimension(950, 800));
         contentPane.add(scrollPane, BorderLayout.CENTER);
         scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-//        for (int i = 0; i < 20; i++) {
-//
-//            JPanel pnlResult = new JPanel();
-//            pnlResult.add(new JLabel());
-//            pnlResult.setLayout(new FlowLayout());
-//            pnlResult.setBackground(Color.WHITE);
-//            pnlResult.setPreferredSize(new Dimension(900, 180));
-//            pnlResult.setBorder(new LineBorder(Color.BLACK));
-//
-//            p2.add(pnlResult);
-//
-//        }
+
         contentPane.add(pnlHeader, BorderLayout.NORTH);
         add(contentPane);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -238,18 +242,37 @@ public class MainForm extends JFrame implements ActionListener {
         return feed;
     }
 
-    public static void searchEventful() {
+    public static Event searchEventful() {
 
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://api.eventful.com/rest/events/search?app_key=wt6gmV8ShdxVJhSh&keywords=food&location=indianapolis&date=Future");
-        String result = target.request(MediaType.APPLICATION_JSON).get(String.class);
-
+        FileWriter fw = null;
+        try {
+            System.out.println("Searching Events");
+            Client client = ClientBuilder.newClient();
+            WebTarget target = client.target("http://api.eventful.com/rest/events/search?app_key=wt6gmV8ShdxVJhSh&keywords=food&location=47906&date=Future");
+            String result = target.request(MediaType.APPLICATION_JSON).get(String.class);
+            System.out.println(result);
+            fw = new FileWriter("my-file.xml");
+            fw.write(result);
+            fw.close();
+            String[] list = ResourceLoader.load("my-file.xml");
+            Event e = new Event(list[0], list[1], list[2], list[3], new Location(list[4], list[5], list[6], list[7]));
+            return e;
+        } catch (IOException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                fw.close();
+            } catch (IOException ex) {
+                Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
 
-        if (ae.getSource() == btnSearch) {
+        if (ae.getSource() == btnSearch && radio1.isSelected()) {
             p2.removeAll();
             String categories = "";
             if (jCheckBox1.isSelected()) {
@@ -306,7 +329,7 @@ public class MainForm extends JFrame implements ActionListener {
                 JButton btnResult = new JButton();
                 btnResult.setHorizontalAlignment(SwingConstants.LEFT);
                 btnResult.setLayout(new GridLayout(1, 2));
-                
+
                 btnResult.add(new JLabel(info));
                 btnResult.add(new JLabel(image));
                 btnResult.setBackground(Color.WHITE);
@@ -320,21 +343,54 @@ public class MainForm extends JFrame implements ActionListener {
             }
             System.out.println(results.size());
             p2.setPreferredSize(new Dimension(CONTENT_WIDTH, (results.size() + 1) * 150));
+        } else if (ae.getSource() == radio1) {
+            radio1.setSelected(true);
+            radio2.setSelected(false);
+            lblTitle.setText(radio1.getText());
+        } else if (ae.getSource() == radio2) {
+            radio2.setSelected(true);
+            radio1.setSelected(false);
+            lblTitle.setText(radio2.getText());
+            p2.removeAll();
+            Event e = searchEventful();
+            if (!e.equals(null)) {
+                System.out.println("NAME: " + e.getTitle() + "\nDESCRIPTION: " + e.getDescription() + "\nTime: " + e.getStart_time() + " - " + e.getEnd_time());
+                JPanel pnlEvent = new JPanel();
+                String html = "<html><b><u>" + e.getTitle() + "</u></b><br>" + e.getStart_time() + " - " + e.getEnd_time() + "<br>" + e.getLocation().getAddress1() + "<br>" + e.getLocation().getCity() + ", " + e.getLocation().getState() + " " + e.getLocation().getZip_code() + "<br>" + e.getDescription() + "</html>";
+                pnlEvent.add(new JLabel(html));
+                p2.add(pnlEvent);
+                pnlEvent.setBackground(Color.WHITE);
+                pnlEvent.setPreferredSize(new Dimension(CONTENT_WIDTH, 150));
+                pnlEvent.setBorder(new LineBorder(Color.BLACK));
+                p2.setPreferredSize(new Dimension(CONTENT_WIDTH, (results.size() + 1) * 150));
+            } else {
+                p2.add(new JLabel("No events found."));
+            }
         } else {
-            for(JButton b : results) {
-                if(ae.getSource() == b) {
-                    if(p instanceof User) {
-                        Review r  = ((User)p).LeaveReview();
+            for (JButton b : results) {
+                if (ae.getSource() == b) {
+                    if (p instanceof User) {
+                        Review r = ((User) p).LeaveReview();
+                        System.out.println(r.getReviewDescription());
                         resturaunts.get(results.indexOf(b)).addReview(r);
                     } else {
-                       Review r = ((Critic)p).LeaveReview();
-                       resturaunts.get(results.indexOf(b)).addReview(r);
+                        Review r = ((Critic) p).LeaveReview();
+                        System.out.println(r.getReviewDescription());
+                        resturaunts.get(results.indexOf(b)).addReview(r);
                     }
                 }
             }
         }
         validate();
         repaint();
+    }
+
+    public ArrayList<Restaurant> getResturaunts() {
+        return resturaunts;
+    }
+
+    public void setResturaunts(ArrayList<Restaurant> resturaunts) {
+        this.resturaunts = resturaunts;
     }
 
 }

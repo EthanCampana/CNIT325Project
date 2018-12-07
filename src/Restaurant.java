@@ -2,7 +2,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
-
 public class Restaurant implements Serializable {
 
     private String id;
@@ -22,7 +21,7 @@ public class Restaurant implements Serializable {
     Coordinates coordinates;
     Location location;
     Object[] transactions;
-    private ArrayList<Review> reviews;
+    private ArrayList<Review> reviews = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -160,9 +159,19 @@ public class Restaurant implements Serializable {
         this.transactions = transactions;
     }
 
-    public void addReview(Review r){
-    reviews.add(r);
-    
+    public void addReview(Review r) {
+        reviews.add(r);
+
     }
+
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(ArrayList<Review> reviews) {
+        this.reviews = reviews;
+    }
+    
+    
 
 }

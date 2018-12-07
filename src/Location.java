@@ -15,6 +15,15 @@ public class Location implements Serializable {
     private Object[] display_address;
     private String cross_streets;
 
+    public Location(String address1, String city, String state, String zip_code) {
+        this.address1 = address1;
+        this.city = city;
+        this.state = state;
+        this.zip_code = zip_code;
+    }
+    
+    
+
     public String getAddress1() {
         return address1;
     }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<search>
+  <total_items>1</total_items>
+  <page_size>10</page_size>
+  <page_count>1</page_count>
+  <page_number>1</page_number>
+  <page_items></page_items>
+  <first_item></first_item>
+  <last_item></last_item>
+  <search_time>0.029</search_time>
+  <events>
+    <event id="E0-001-114127540-8@2018122017">
+      <title>Auxiliary #492 Fish Fry</title>
+      <url>http://eventful.com/westlafayette/events/auxiliary-492-fish-fry-/E0-001-114127540-8@2018122017?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</url>
+      <description>Come on down for our Auxiliary Fish Fry!  All you can eat fish, fries, cole slaw, and bean salad for $10!!!</description>
+      <start_time>2018-12-20 17:00:00</start_time>
+      <stop_time>2018-12-20 19:00:00</stop_time>
+      <tz_id></tz_id>
+      <tz_olson_path></tz_olson_path>
+      <tz_country></tz_country>
+      <tz_city></tz_city>
+      <olson_path>America/Indiana/Indianapolis</olson_path>
+      <venue_id>V0-001-009803918-7</venue_id>
+      <venue_url>http://eventful.com/westlafayette/venues/american-legion-post-492-/V0-001-009803918-7?utm_source=apis&amp;utm_medium=apim&amp;utm_campaign=apic</venue_url>
+      <venue_name>American Legion Post #492</venue_name>
+      <venue_display>1</venue_display>
+      <venue_address>4929 Indiana 43</venue_address>
+      <city_name>West Lafayette</city_name>
+      <region_name>Indiana</region_name>
+      <region_abbr>IN</region_abbr>
+      <postal_code>47906</postal_code>
+      <country_name>United States</country_name>
+      <country_abbr2>US</country_abbr2>
+      <country_abbr>USA</country_abbr>
+      <latitude>40.4859519</latitude>
+      <longitude>-86.8738558</longitude>
+      <geocode_type>EVDB Geocoder</geocode_type>
+      <all_day>0</all_day>
+      <recur_string>monthly on the 3rd Thursday for 10 times</recur_string>
+      <calendar_count></calendar_count>
+      <comment_count></comment_count>
+      <link_count></link_count>
+      <going_count></going_count>
+      <watching_count></watching_count>
+      <created>2018-05-04 08:05:08</created>
+      <owner>putt49270d00</owner>
+      <modified>2018-05-04 08:05:08</modified>
+      <performers></performers>
+      <image></image>
+      <privacy>1</privacy>
+      <calendars></calendars>
+      <groups></groups>
+      <going></going>
+    </event>
+  </events>
+</search>

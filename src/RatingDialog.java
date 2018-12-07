@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 public class RatingDialog extends javax.swing.JDialog {
 
     private int rating = 0;
-    int Finalrating;
+    int Finalrating = -1;
     
     RatingDialog() {
         super((java.awt.Frame) null, true);

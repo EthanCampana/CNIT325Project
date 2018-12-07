@@ -9,7 +9,7 @@
  * @author ethan
  */
 public class CriticDialog extends javax.swing.JDialog {
-    String Finalrating;
+    String Finalrating = "";
       CriticDialog() {
         super((java.awt.Frame) null, true);
           initComponents();
