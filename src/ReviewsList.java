@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import javax.swing.JRootPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,19 +15,24 @@ import java.util.ArrayList;
 public class ReviewsList extends javax.swing.JFrame {
     
     private String resName;
-    private ArrayList<Review> r;
+    private ArrayList<Review> rs;
+    private MainForm f;
     
-    public ReviewsList(ArrayList<Review> r, String resName) {
-        this.r = r;
-        this.resName = resName;         
+    public ReviewsList(ArrayList<Review> rs, String resName, MainForm f) {
+        this.rs = rs;
+        this.resName = resName;  
+        this.f = f;
         initComponents();
+        txtArea.setEditable(false);
+        txtArea.setLineWrap(true);
         jLabel1.setText(resName);
-        for(Review w : r){
+        setDefaultCloseOperation(0);
+        for(Review w : rs){
             if(w.getReviewDescription() != null){
-            txtArea.append(w.getReviewDescription() + "/n");
+            txtArea.append(w.getReviewDescription() + "\n");
             }
             if(w.getRatingscore() != 0){
-            txtArea.append("A User rated this resturaunt: " + w.getRatingscore() +" out of 5 stars"  );
+            txtArea.append("A User rated this restaurant: " + w.getRatingscore() +" out of 5 stars"  );
             }
         }
         
@@ -38,6 +44,7 @@ public class ReviewsList extends javax.swing.JFrame {
     private ReviewsList() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,6 +60,7 @@ public class ReviewsList extends javax.swing.JFrame {
         BtnClose = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,6 +81,13 @@ public class ReviewsList extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 30)); // NOI18N
         jLabel2.setText("Reviews:");
 
+        jButton1.setText("Leave Review");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,9 +99,12 @@ public class ReviewsList extends javax.swing.JFrame {
                         .addComponent(BtnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 803, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(268, 268, 268)
                         .addComponent(jLabel1)))
@@ -98,11 +116,14 @@ public class ReviewsList extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addComponent(BtnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)
+                        .addComponent(BtnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1))
                 .addGap(11, 11, 11))
         );
 
@@ -115,6 +136,19 @@ public class ReviewsList extends javax.swing.JFrame {
     private void BtnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCloseActionPerformed
         CloseFrame();
     }//GEN-LAST:event_BtnCloseActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (f.getP() instanceof User) {
+            Review r = ((User) f.getP()).LeaveReview();
+            System.out.println(r.getReviewDescription());
+            f.getResturaunts().get(f.getResults().indexOf(f.getBtnViewing())).addReview(r);
+        } else {
+            Review r = ((Critic) f.getP()).LeaveReview();
+            System.out.println(r.getReviewDescription());
+            f.getResturaunts().get(f.getResults().indexOf(f.getBtnViewing())).addReview(r);
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,6 +187,7 @@ public class ReviewsList extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnClose;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class Critic extends Person implements LeaveReview {
 
@@ -40,13 +41,16 @@ public class Critic extends Person implements LeaveReview {
         boolean ready = false;
         Review myreview = new Review(dialog.ReturnValue());
         while (!ready) {
+            myreview.setReviewDescription(dialog.ReturnValue());
+            System.out.print("");
             if (!myreview.getReviewDescription().equals("")) {
-                myreview = new Review(dialog.ReturnValue());
-                addReview(myreview);
                 dialog.dispose();
+                System.out.println("Enter");
+                addReview(myreview);              
                 return myreview;
             }
         }
+        dialog.dispose();
         return null;
     }
 }

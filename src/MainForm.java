@@ -50,7 +50,7 @@ public class MainForm extends JFrame implements ActionListener {
     private JTextField search;
     private JLabel lblTitle;
     private JScrollPane scrollPane;
-    private JButton btnSearch;
+    private JButton btnSearch, btnViewing;
     private ArrayList<JButton> results = new ArrayList<>();
     private ArrayList<Restaurant> resturaunts = new ArrayList<>();
     private static int SIDE_WIDTH = 200, CONTENT_WIDTH = 700, HEIGHT = 500;
@@ -369,21 +369,17 @@ public class MainForm extends JFrame implements ActionListener {
         } else {
             for (JButton b : results) {
                 if (ae.getSource() == b) {
-                    if (p instanceof User) {
-                        Review r = ((User) p).LeaveReview();
-                        System.out.println(r.getReviewDescription());
-                        resturaunts.get(results.indexOf(b)).addReview(r);
-                    } else {
-                        Review r = ((Critic) p).LeaveReview();
-                        System.out.println(r.getReviewDescription());
-                        resturaunts.get(results.indexOf(b)).addReview(r);
-                    }
+                    btnViewing = b;
+                    ReviewsList reviewsList = new ReviewsList(resturaunts.get(results.indexOf(b)).getReviews(), resturaunts.get(results.indexOf(b)).getName(), this);
+                    reviewsList.setVisible(true);
+                    
                 }
             }
         }
         validate();
         repaint();
     }
+
 
     public ArrayList<Restaurant> getResturaunts() {
         return resturaunts;
@@ -392,5 +388,31 @@ public class MainForm extends JFrame implements ActionListener {
     public void setResturaunts(ArrayList<Restaurant> resturaunts) {
         this.resturaunts = resturaunts;
     }
+
+    public JButton getBtnViewing() {
+        return btnViewing;
+    }
+
+    public void setBtnViewing(JButton btnViewing) {
+        this.btnViewing = btnViewing;
+    }
+
+    public ArrayList<JButton> getResults() {
+        return results;
+    }
+
+    public void setResults(ArrayList<JButton> results) {
+        this.results = results;
+    }
+
+    public Person getP() {
+        return p;
+    }
+
+    public void setP(Person p) {
+        this.p = p;
+    }
+    
+    
 
 }
